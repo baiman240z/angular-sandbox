@@ -1,0 +1,78 @@
+<div class="container">
+  <h1>
+    {{ title }}!
+  </h1>
+
+  <div class="card mt-3">
+    <div class="card-header">For</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let val of datalist"
+          [class.active]="val.selected"
+          [hidden]="val.hidden"
+        >{{ val.name }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">IF</div>
+    <div class="card-body">
+      <div class="form-check form-check-inline">
+        <input id="radio1" class="form-check-input" name="checked" type="radio" value="on" [(ngModel)]="checked">
+        <label for="radio1" class="form-check-label">ON</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="radio2" class="form-check-input" name="checked" type="radio" value="off" [(ngModel)]="checked">
+        <label for="radio2" class="form-check-label">OFF</label>
+      </div>
+      <div class="form-check form-check-inline" *ngIf="checked == 'on'">
+        <span class="badge badge-info">Hello!!</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">
+      Data bind
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <label>Price</label>
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="price">
+          <div class="input-group-append"><span class="input-group-text">Yen</span></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tax included</label>
+        <div class="input-group">
+          <input type="text" class="form-control" value="{{ price * 1.08 | number }}">
+          <div class="input-group-append"><span class="input-group-text">Yen</span></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-info btn-sm" (click)="saveClick()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">
+      Child component
+    </div>
+    <div class="card-body">
+      <app-child price="{{ price }}" (add)="addPrice($event)"></app-child>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">Next page</div>
+    <div class="card-body">
+      <button type="button" class="btn btn-primary" (click)="goNext()">Go next</button>
+    </div>
+  </div>
+
+</div>
